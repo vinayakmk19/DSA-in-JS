@@ -15,6 +15,30 @@ Promises can be chained together using the `then` method. The `then` method take
 Here's an example of using promises to fetch data from an API:
 
 ```javascript
+function foodOrder() {
+    return new Promise((resolve, reject) => {
+        console.log('ordering food...');
+
+        setTimeout(() => {
+
+            let isDelivered = false;
+
+            if (isDelivered) {
+                resolve('Food is delivered.')
+            } else {
+                reject('food order is canceled')
+            }
+
+        }, 500)
+    })
+}
+
+foodOrder()
+.then((message) => console.log(message))
+.catch((error) => console.log(error));
+
+----------------------------------------------------
+
 fetch('https://api.freeapi.app/v1/jokes/random')
   .then(response => response.json())
   .then(data => console.log(data))
