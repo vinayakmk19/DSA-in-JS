@@ -56,9 +56,19 @@ fetch('https://api.freeapi.app/v1/jokes/random')
 
 Async/await is a syntax feature in JavaScript that allows you to write asynchronous code in a more synchronous way. It uses the `async` and `await` keywords to define asynchronous functions.
 
+Async/Await in JavaScript provides a way to handle asynchronous operations in a more readable and straightforward manner compared to using promises alone. It's built on top of promises and allows you to write asynchronous code that looks like synchronous code.
+
+An async function is a function that always returns a promise. If the function returns a value, that value is automatically wrapped in a resolved promise. If the function throws an error, it’s wrapped in a rejected promise.
+
+The await keyword can only be used inside async functions. It makes JavaScript wait until the promise is resolved or rejected, and then returns the result. While waiting, other code can continue to run (non-blocking).
+
+Async/await is a cleaner way to work with promises in JavaScript. It allows me to write asynchronous code that looks and behaves like synchronous code, making it easier to read and debug. By marking a function as async, I can use the await keyword to pause execution until a promise is resolved, all without blocking the main thread. This approach makes handling asynchronous operations like data fetching more intuitive and maintainable.
+
 Here's an example of using async/await to fetch data from an API:
 
 ```javascript
+Example 1:
+
 async function fetchData() {
   try {
     const response = await fetch('https://api.freeapi.app/v1/jokes/random');
@@ -72,6 +82,34 @@ async function fetchData() {
 fetchData()
   .then(() => console.log('Data fetched'))
   .catch(error => console.error(error));
+
+
+--------------------------------------------------------------------------------------
+Example 2:
+
+// Simulate a function that fetches user data from a server
+function fetchUserData() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({ name: "John", age: 30 });
+    }, 2000); // Simulate a 2-second delay
+  });
+}
+
+// Use async/await to fetch the data
+async function getUserData() {
+  console.log("Fetching user data...");
+
+  // Wait for the user data to be fetched
+  const userData = await fetchUserData();
+
+  // Continue execution after the data is fetched
+  console.log("User Data:", userData);
+}
+
+// Call the async function
+getUserData();
+
 ```
 
 In this example, the `fetchData` function is defined as an asynchronous function using the `async` keyword. The `await` keyword is used to wait for the `fetch` function to complete before moving on to the next line of code. All code after the `await` keyword, rest of the function is executed in the microtask queue.
