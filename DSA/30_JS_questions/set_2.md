@@ -121,9 +121,37 @@ In this example, the `fetchData` function is defined as an asynchronous function
   
   Callback functions are functions that are passed as arguments to other functions and are called when a certain event occurs. They are commonly used in JavaScript to handle asynchronous operations, such as making HTTP requests or reading from a file.
 
+  A callback function is a function passed into another function as an argument, which is then invoked after the operation is completed. In my example, I passed the serveDinner function as a callback to cookRice. After the rice finishes cooking, serveDinner is automatically called, ensuring that dinner is served only when the rice is ready. This pattern is commonly used in asynchronous JavaScript to make sure tasks happen in the correct order.
+
   example:
 
   ```javascript
+
+Example 1:
+
+// Function to cook rice
+function cookRice(callback) {
+  console.log("Cooking rice...");
+
+  // Simulate cooking time with setTimeout (2 seconds)
+  setTimeout(() => {
+    console.log("Rice is ready!");
+
+    // Call the callback function once the rice is cooked
+    callback();
+  }, 2000);
+}
+
+// Function to serve dinner
+function serveDinner() {
+  console.log("Dinner is served!");
+}
+
+// Call cookRice and pass serveDinner as a callback
+cookRice(serveDinner);
+
+Example 2:
+
   function readFile(filename, callback) {
     fs.readFile(filename, 'utf8', (err, data) => {
       if (err) return callback(err);
